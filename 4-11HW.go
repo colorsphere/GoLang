@@ -7,10 +7,10 @@ func main() {
 }
 
 func read() {
-	quantity := 0.0
-	fmt.Scan(quantity)
+	summ := 0.0
+	fmt.Scan(summ)
 }
 
-func calculation(quantity float64, usd string, eur string) {
+func calculation(summ float64, usd string, eur string) {
 
 }
