@@ -1,9 +1,11 @@
-package main //Scope
+package main //Scope (глобальные переменные)
 
 import (
 	"fmt"
 	"math"
 )
+
+const IMTPower = 2 //глобальная константа
 
 func main() {
 	fmt.Println("___Калькулятор индекса массы тела___")
@@ -17,10 +19,9 @@ func outputResult(imt float64) {
 	fmt.Print(result)
 }
 
-func calculateIMT(userKg, userHeight float64) float64 {
-	const IMTPower = 2
-	IMT := userKg / math.Pow(userHeight/100, IMTPower)
-	return IMT
+func calculateIMT(userKg, userHeight float64) (IMT float64) { //альтернативный возврат функции
+	IMT = userKg / math.Pow(userHeight/100, IMTPower) //не создание, а присвоение
+	return
 }
 
 func getUserInput() (float64, float64) {
