@@ -55,14 +55,14 @@ func calculation(summ float64, currency1 string, currency2 string) (result float
 		}
 	}
 	if currency1 == "eur" || currency1 == "EUR" {
-		if currency2 == "rub" || currency2 == "RUB"{
+		if currency2 == "rub" || currency2 == "RUB" {
 			result = eur * summ
 		} else {
 			result = eur / usd * summ
 		}
 	}
 	if currency1 == "usd" || currency1 == "USD" {
-		if currency2 == "rub" || currency2 = "RUB"{
+		if currency2 == "rub" || currency2 == "RUB" {
 			result = usd * summ
 		} else {
 			result = usd / eur * summ
