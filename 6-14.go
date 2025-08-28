@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 func main() {
@@ -13,6 +14,7 @@ func readString() (numbers []float64) {
 	var str string
 	fmt.Print("Введите последовательность чисел через запятую: ")
 	fmt.Scan(&str)
+	strings.Split(str, ",")
 
 }
 
