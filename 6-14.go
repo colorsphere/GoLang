@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"slices"
 	"strconv"
 	"strings"
 )
@@ -37,15 +38,28 @@ func readOperation() (operation string) {
 
 func calculate(numbers []float64, operation string) (result float64) {
 	fmt.Println(numbers)
-	fmt.Println(operation) // удалить
 	switch operation {
 	case "SUM", "sum":
-		fmt.Print("Сумма чисел равна: ")
+		for _, value := range numbers {
+			result += value
+		}
+		fmt.Printf("Сумма чисел равна: %v", result)
 	case "AVG", "avg":
-		fmt.Print("Среднее значение равно: ")
+		for _, value := range numbers {
+			result += value
+		}
+		result = result / float64(len(numbers))
+		fmt.Printf("Среднее значение равно: %v", result)
 	case "MED", "med":
-		fmt.Print("Медиана равна: ")
-		numbers := 
+		slices.Sort(numbers)
+		if len(numbers)%2 == 1 {
+			numbers = numbers[len(numbers)/2 : len(numbers)/2+1]
+			result = float64(numbers[0])
+		} else {
+			numbers = numbers[len(numbers)/2-1 : len(numbers)/2+1]
+			result = float64((numbers[0] + numbers[1]) / 2)
+		}
+		fmt.Printf("Медиана равна: %v", result)
 	}
 	return
 }
