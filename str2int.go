@@ -3,14 +3,20 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 func main() {
-	str := "123"
-	number, err := strconv.Atoi(str) // Atoi преобразует строку в int
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(number) // Вывод будет: 123
+	str := "1,3,5,6,8,42"
+
+	strs := strings.Split(str, ",") // это СЛАЙС
+	var ints []int
+	for _, s := range strs {
+		num, err := strconv.Atoi(s)
+		if err == nil {
+			ints = append(ints, num)
+		}
 	}
+
+	fmt.Println(ints)
 }
