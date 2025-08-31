@@ -27,9 +27,9 @@ func main() {
 }
 
 func readCurrency() (currency string) {
-	for currency != "USD" && currency != "usd" && currency != "EUR" && currency != "eur" && currency != "RUB" && currency != "rub" {
+	for currency != "USD" && currency != "EUR" && currency != "RUB" {
 		fmt.Scan(&currency)
-		if currency != "USD" && currency != "usd" && currency != "EUR" && currency != "eur" && currency != "RUB" && currency != "rub" {
+		if currency != "USD" && currency != "EUR" && currency != "RUB" {
 			fmt.Print("Неверный ввод, повторите (USD/EUR/RUB):")
 		}
 	}
@@ -45,28 +45,10 @@ func readSumm() (float64, error) {
 }
 
 func calculation(summ float64, currency1 string, currency2 string) (result float64) {
-	usd := 80.68
-	eur := 94.46
-	if currency1 == "rub" || currency1 == "RUB" {
-		if currency2 == "usd" || currency2 == "USD" {
-			result = summ / usd
-		} else {
-			result = summ / eur
-		}
-	}
-	if currency1 == "eur" || currency1 == "EUR" {
-		if currency2 == "rub" || currency2 == "RUB" {
-			result = eur * summ
-		} else {
-			result = eur / usd * summ
-		}
-	}
-	if currency1 == "usd" || currency1 == "USD" {
-		if currency2 == "rub" || currency2 == "RUB" {
-			result = usd * summ
-		} else {
-			result = usd / eur * summ
-		}
-	}
+	calcMap := map[string]map[string]float64{
+		"USD": map[string]float64{"RUB": 80.68, "EUR": 0.8541},
+		"EUR": map[string]float64{"RUB": 94.46, "USD": 1.1682},
+		"RUB": map[string]float64{"USD": 1 / 80.68, "EUR": 1 / 94.46}}
+	result = calcMap[currency1][currency2] * summ
 	return
 }
