@@ -1,6 +1,8 @@
-package main // struct указатели
+package main // Rune
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type account struct {
 	login    string // это список полей, название поля + тип поля
@@ -9,6 +11,12 @@ type account struct {
 }
 
 func main() {
+	//	str := "Привет!)"
+	str := []rune("Привет!)") // аналогичная предыдущей запись
+	for _, ch := range str {
+		fmt.Println(ch, string(ch))
+	}
+
 	login := promptData("Введите логин: ")
 	password := promptData("Введите пароль: ")
 	url := promptData("Введите URL: ")
