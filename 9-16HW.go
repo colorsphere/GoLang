@@ -13,7 +13,6 @@ type Bin struct {
 }
 
 func (bin *Bin) readBin() {
-
 }
 
 func main() {
