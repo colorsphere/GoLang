@@ -1,0 +1,54 @@
+package main // перенести generatePassword в метод
+import (
+	"fmt"
+	"math/rand/v2"
+)
+
+type account struct {
+	login    string // это список полей, название поля + тип поля
+	password string
+	url      string
+}
+
+func (genPass *account) generatePassword(n int) {
+	res := make([]rune, n)
+	for i := range res {
+		res[i] = letterRunes[rand.IntN(len(letterRunes))]
+	}
+	genPass.password = string(res)
+	return
+}
+
+func (acc account) outputPassword() { // методы прописываются сразу после объявления структуры
+	fmt.Println(acc)
+	//	acc.login = "!!" // изменения только здесь, значения в структуре не поменяются, т.к. это НЕ УКАЗАТЕЛЬ
+	fmt.Println(acc.login, acc.password, acc.url)
+}
+
+var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-!*")
+
+func main() {
+	n := 12
+	//	fmt.Println(rand.IntN(10)) // пример генерации случайного числа
+	//	fmt.Print("Введите длину пароля: ")
+	//	fmt.Scan(&n)
+	//	fmt.Println(generatePassword(n))
+	login := promptData("Введите логин: ")
+	password := promptData("Введите пароль: ")
+	url := promptData("Введите URL: ")
+
+	myAcount := account{
+		login:    login,
+		password: password,
+		url:      url,
+	}
+	myAcount.generatePassword(n)
+	myAcount.outputPassword() // так вызывается метод, передавать ничего не нужно
+}
+
+func promptData(prompt string) string {
+	fmt.Print(prompt)
+	var res string
+	fmt.Scan(&res)
+	return res
+}
