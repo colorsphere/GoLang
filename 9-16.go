@@ -13,7 +13,7 @@ type Bin struct {
 }
 
 type BinList struct {
-	list Bin
+	list []Bin
 }
 
 func newBin() *Bin {
@@ -26,15 +26,16 @@ func newBin() *Bin {
 	return newBin
 }
 func newBinList() *BinList {
-	newBinList := &BinList{
-		list: Bin{
-			id:        "2",
-			private:   false,
-			createdAt: time.Now(),
-			name:      "Ivan",
+	return &BinList{
+		list: []Bin{
+			{
+				id:        "2",
+				private:   false,
+				createdAt: time.Now(),
+				name:      "Ivan",
+			},
 		},
 	}
-	return newBinList
 }
 
 func main() {
