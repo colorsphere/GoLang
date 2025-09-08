@@ -1,4 +1,4 @@
-module 11.1
+module 11.2
 
 go 1.24.6
 

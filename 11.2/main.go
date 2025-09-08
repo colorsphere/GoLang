@@ -1,9 +1,10 @@
-package main // Пакеты (импорт/экспорт)
+package main // Stack frame
+
 import (
 	"fmt"
 	//	"account" так работать не будет
-	"11.1/account" // название модуля из go.mod
-	"11.1/files"
+	"11.2/account" // название модуля из go.mod
+	"11.2/files"
 )
 
 func main() {
