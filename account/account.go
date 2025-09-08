@@ -1,30 +1,32 @@
-package main
+package account // все что с малеенькой буква - приватные методы
 
 import (
 	"errors"
-	"fmt"
 	"math/rand/v2"
 	"net/url"
 	"time"
+
+	"github.com/fatih/color"
 )
 
-type account struct {
+type Account struct {
 	login    string // это список полей, название поля + тип поля
 	password string
 	url      string
 }
 
-type accountWithTimeStamp struct {
-	account
+type AccountWithTimeStamp struct {
+	Account
 	createdAt time.Time
 	updatedAt time.Time
 }
 
-func (acc *account) outputPassword() { // методы прописываются сразу после объявления структуры
-	fmt.Println(*acc)
+func (acc *Account) OutputPassword() { // методы прописываются сразу после объявления структуры
+	color.Cyan(acc.login, acc.password, acc.url)
+	//	fmt.Println(*acc)
 }
 
-func (acc *account) generatePassword(n int) {
+func (acc *Account) generatePassword(n int) {
 	res := make([]rune, n)
 	for i := range res {
 		res[i] = letterRunes[rand.IntN(len(letterRunes))]
@@ -32,7 +34,7 @@ func (acc *account) generatePassword(n int) {
 	acc.password = string(res)
 }
 
-func newAccountWithTimeStamp(login, password, urlString string) (*accountWithTimeStamp, error) {
+func NewAccountWithTimeStamp(login, password, urlString string) (*AccountWithTimeStamp, error) {
 	if login == "" {
 		return nil, errors.New("Invalid_LOGIN")
 	}
@@ -40,10 +42,10 @@ func newAccountWithTimeStamp(login, password, urlString string) (*accountWithTim
 	if err != nil {
 		return nil, errors.New("Invalid_URL")
 	}
-	newAcc := &accountWithTimeStamp{
+	newAcc := &AccountWithTimeStamp{
 		createdAt: time.Now(),
 		updatedAt: time.Now(),
-		account: account{
+		Account: Account{
 			login:    login,
 			password: password,
 			url:      urlString,

@@ -1,9 +1,8 @@
-package main // Пакет files для работы с файлами
+package main // Пакеты (импорт/экспорт)
 import (
 	"fmt"
 	//	"account" так работать не будет
-	"lesson10/account" // название модуля из go.mod, в моем случае это lesson10
-	"lesson10/files"
+	"lesson10/account" // 10 - название модуля из go.mod, в моем случае это lesson10
 )
 
 func main() {
@@ -17,7 +16,6 @@ func main() {
 	}
 	//	a := account.Account{} // аналогично передается структура
 	myAcount.OutputPassword() // здесь аналогично
-	files.WriteFile()
 	fmt.Println(*myAcount)
 }
 

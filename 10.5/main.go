@@ -1,4 +1,4 @@
-package main // Пакет files для работы с файлами
+package main // Пакеты (импорт/экспорт)
 import (
 	"fmt"
 	//	"account" так работать не будет
