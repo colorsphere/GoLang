@@ -15,11 +15,11 @@ func WriteFile(content, name string) {
 		fmt.Println(err)
 	}
 	_, err = file.WriteString(content) // первая переменная - длина в байтах
+	defer file.Close()                 // Операция, помеченная defer, помещается в конец стека вызовов. Таким образом, она выполняется последней, когда функция завершает свою работу.
 	if err != nil {
 		file.Close()
 		fmt.Println(err)
 		return
 	}
 	fmt.Println("Запись успешна")
-	file.Close()
 }
