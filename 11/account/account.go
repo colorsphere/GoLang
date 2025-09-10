@@ -1,10 +1,11 @@
 package account // JSON (маппинг полей)
 import (
 	"errors"
-	"fmt"
 	"math/rand/v2"
 	"net/url"
 	"time"
+
+	"github.com/fatih/color"
 )
 
 var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-!*")
@@ -17,9 +18,11 @@ type Account struct {
 	UpdatedAt time.Time `json:"updatedAt"`
 }
 
-func (acc *Account) OutputPassword() { // методы прописываются сразу после объявления структуры
-	// color.Cyan(acc.Login)
-	fmt.Println(*acc)
+func (acc *Account) Output() { // методы прописываются сразу после объявления структуры
+	color.Cyan(acc.Login)
+	color.Cyan(acc.Password)
+	color.Cyan(acc.Url)
+	//	fmt.Println(*acc)
 }
 
 func (acc *Account) generatePassword(n int) {

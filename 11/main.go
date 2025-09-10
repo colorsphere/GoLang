@@ -5,20 +5,23 @@ import (
 	//	"account" так работать не будет
 	// название модуля из go.mod
 	"11/account"
+
+	"github.com/fatih/color"
 )
 
 func main() {
 	fmt.Println("__ _ Менеджер паролей _ __")
+	vault := account.NewVault()
 Menu:
 	for {
 		variant := getMenu()
 		switch variant {
 		case 1:
-			createAccount()
+			createAccount(vault)
 		case 2:
-			findAccount()
+			findAccount(vault)
 		case 3:
-			deleteAccount()
+			deleteAccount(vault)
 		default:
 			break Menu
 		}
@@ -34,15 +37,28 @@ func getMenu() (variant int) {
 	return
 }
 
-func findAccount() {
-
+func findAccount(vault *account.Vault) {
+	url := promptData("Введите URL для поиска: ")
+	accounts := vault.FindAccountsByUrl(url)
+	if len(accounts) == 0 {
+		color.Red("Аккаунтов не найдено")
+	}
+	for _, account := range accounts {
+		account.Output()
+	}
 }
 
-func deleteAccount() {
-
+func deleteAccount(vault *account.Vault) {
+	url := promptData("Введите URL для удаления: ")
+	isDeleted := vault.DeleteAccountsByUrl(url)
+	if isDeleted {
+		color.Green("Удалено")
+	} else {
+		color.Red("Не найдено")
+	}
 }
 
-func createAccount() {
+func createAccount(vault *account.Vault) {
 	login := promptData("Введите логин: ")
 	password := promptData("Введите пароль: ")
 	url := promptData("Введите URL: ")
@@ -51,8 +67,6 @@ func createAccount() {
 		fmt.Println(err)
 		return
 	}
-	//	fmt.Println(*myAcount)
-	vault := account.NewVault()
 	vault.AddAccount(*myAcount)
 
 }
