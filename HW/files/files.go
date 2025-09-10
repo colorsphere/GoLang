@@ -1,17 +1,24 @@
 package files
 
 import (
+	"errors"
 	"fmt"
 	"os"
+	"strings"
 )
 
 func ReadFile(name string) ([]byte, error) {
-	data, err := os.ReadFile(name) // читаем список байтов
-	if err != nil {
-		fmt.Println(err)
-		return nil, err
+	if strings.Contains(name, "json") {
+		data, err := os.ReadFile(name) // читаем список байтов
+		if err != nil {
+			fmt.Println(err)
+			return nil, err
+		}
+		return data, nil
+	} else {
+		return nil, errors.New("Это не json")
 	}
-	return data, nil
+
 }
 
 func WriteFile(content []byte, name string) {
