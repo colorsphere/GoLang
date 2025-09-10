@@ -1,10 +1,8 @@
 package main // 11.6 JSON
 
 import (
-	"fmt"
-	//	"account" так работать не будет
-	// название модуля из go.mod
 	bin "11/storage"
+	"fmt"
 )
 
 func main() {

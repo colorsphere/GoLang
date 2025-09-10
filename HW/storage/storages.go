@@ -1,4 +1,4 @@
-package account // здесь создается слайс аккаунтов
+package storage // здесь создается слайс аккаунтов
 
 import (
 	"11/files"

@@ -1,4 +1,4 @@
-package account // JSON (маппинг полей)
+package storage // JSON (маппинг полей)
 import (
 	"errors"
 )
