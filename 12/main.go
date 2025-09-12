@@ -5,13 +5,14 @@ import (
 	//	"account" так работать не будет
 	// название модуля из go.mod
 	"11/account"
+	"11/files"
 
 	"github.com/fatih/color"
 )
 
 func main() {
 	fmt.Println("__ _ Менеджер паролей _ __")
-	vault := account.NewVault()
+	vault := account.NewVault(files.NewJsonDb("data.json"))
 Menu:
 	for {
 		variant := getMenu()
@@ -37,7 +38,7 @@ func getMenu() (variant int) {
 	return
 }
 
-func findAccount(vault *account.Vault) {
+func findAccount(vault *account.VaultWithDb) {
 	url := promptData("Введите URL для поиска: ")
 	accounts := vault.FindAccountsByUrl(url)
 	if len(accounts) == 0 {
@@ -48,7 +49,7 @@ func findAccount(vault *account.Vault) {
 	}
 }
 
-func deleteAccount(vault *account.Vault) {
+func deleteAccount(vault *account.VaultWithDb) {
 	url := promptData("Введите URL для удаления: ")
 	isDeleted := vault.DeleteAccountsByUrl(url)
 	if isDeleted {
@@ -58,7 +59,7 @@ func deleteAccount(vault *account.Vault) {
 	}
 }
 
-func createAccount(vault *account.Vault) {
+func createAccount(vault *account.VaultWithDb) {
 	login := promptData("Введите логин: ")
 	password := promptData("Введите пароль: ")
 	url := promptData("Введите URL: ")
