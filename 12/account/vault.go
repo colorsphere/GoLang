@@ -1,13 +1,17 @@
-package account // здесь создается слайс аккаунтов
+package account // Интерфейс
 
 import (
-	"11/files"
 	"encoding/json"
 	"strings"
 	"time"
 
 	"github.com/fatih/color"
 )
+
+type Db interface {
+	Read() ([]byte, error)
+	Write([]byte)
+}
 
 type Vault struct {
 	Accounts  []Account `json:"accounts"`
@@ -16,7 +20,7 @@ type Vault struct {
 
 type VaultWithDb struct {
 	Vault
-	db files.JsonDb
+	db Db
 }
 
 func (vault *VaultWithDb) FindAccountsByUrl(url string) []Account {
@@ -48,7 +52,7 @@ func (vault *VaultWithDb) DeleteAccountsByUrl(url string) bool {
 	return isDeleted
 }
 
-func NewVault(db *files.JsonDb) *VaultWithDb {
+func NewVault(db Db) *VaultWithDb {
 	// db := files.NewJsonDb("data.json") // это зависимость - убираем ее отсюда
 	file, err := db.Read()
 	if err != nil {
@@ -57,7 +61,7 @@ func NewVault(db *files.JsonDb) *VaultWithDb {
 				Accounts:  []Account{},
 				UpdatedAt: time.Now(),
 			},
-			db: *db,
+			db: db,
 		}
 	}
 	var vault Vault
@@ -69,12 +73,12 @@ func NewVault(db *files.JsonDb) *VaultWithDb {
 				Accounts:  []Account{},
 				UpdatedAt: time.Now(),
 			},
-			db: *db,
+			db: db,
 		}
 	}
 	return &VaultWithDb{
 		Vault: vault,
-		db:    *db,
+		db:    db,
 	}
 }
 
