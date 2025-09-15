@@ -1,4 +1,4 @@
-package account // Интерфейс
+package account // Интерфейс встроенный
 
 import (
 	"encoding/json"
@@ -8,9 +8,17 @@ import (
 	"github.com/fatih/color"
 )
 
-type Db interface {
+type ByteReader interface {
 	Read() ([]byte, error)
+}
+
+type ByteWriter interface {
 	Write([]byte)
+}
+
+type Db interface {
+	ByteReader
+	ByteWriter
 }
 
 type Vault struct {
