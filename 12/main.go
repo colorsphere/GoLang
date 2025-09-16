@@ -6,11 +6,15 @@ import (
 	// название модуля из go.mod
 	"11/account"
 	"11/cloud"
+	"11/output"
 
 	"github.com/fatih/color"
 )
 
 func main() {
+	output.PrintError(1)
+	output.PrintError("sd")
+	//	output.PrintError(NewCloudDb("https://a.ru")
 	fmt.Println("__ _ Менеджер паролей _ __")
 	vault := account.NewVault(cloud.NewCloudDb("https://a.ru"))
 	//	vault := account.NewVault(files.NewJsonDb("data.json"))
