@@ -60,7 +60,8 @@ func deleteAccount(vault *account.VaultWithDb) {
 	if isDeleted {
 		color.Green("Удалено")
 	} else {
-		color.Red("Не найдено")
+		//		color.Red("Не найдено") заменяем на вывод из output
+		output.PrintError("Не найдено")
 	}
 }
 
@@ -70,7 +71,8 @@ func createAccount(vault *account.VaultWithDb) {
 	url := promptData("Введите URL: ")
 	myAcount, err := account.NewAccount(login, password, url)
 	if err != nil {
-		fmt.Println(err)
+		output.PrintError("Неверный формат URL или Логин")
+		//		fmt.Println(err)
 		return
 	}
 	vault.AddAccount(*myAcount)

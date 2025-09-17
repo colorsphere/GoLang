@@ -1,6 +1,7 @@
 package files
 
 import (
+	"11/output"
 	"fmt"
 	"os"
 )
@@ -27,13 +28,13 @@ func (db *JsonDb) Read() ([]byte, error) {
 func (db *JsonDb) Write(content []byte) {
 	file, err := os.Create(db.filename)
 	if err != nil {
-		fmt.Println(err)
+		output.PrintError(err)
 	}
 	_, err = file.Write(content) // первая переменная - длина в байтах
 	defer file.Close()           // Операция, помеченная defer, помещается в конец стека вызовов. Таким образом, она выполняется последней, когда функция завершает свою работу.
 	if err != nil {
 		file.Close()
-		fmt.Println(err)
+		output.PrintError(err)
 		return
 	}
 	fmt.Println("Запись успешна")
