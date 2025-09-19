@@ -1,4 +1,4 @@
-package output // вытаскиваем тип value
+package output // дженерики
 import (
 	"fmt"
 
@@ -29,4 +29,8 @@ func PrintError(value any) {
 	default:
 		fmt.Println("any", t)
 	}
+}
+
+func sum[T int | float32 | float64 | int16 | int32 | string, V int](a, b T, c V) T { // так описывается дженерик
+	return a + b
 }
