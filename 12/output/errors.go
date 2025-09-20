@@ -31,6 +31,6 @@ func PrintError(value any) {
 	}
 }
 
-func sum[T int | float32 | float64 | int16 | int32 | string, V int](a, b T, c V) T { // так описывается дженерик
+func sum[T int | float32 | float64 | int16 | int32 | string, V int](a, b T, c V) T { // нельзя добавить error, например, но можно использовать свой тип
 	return a + b
 }
