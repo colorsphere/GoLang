@@ -41,7 +41,7 @@ func (vault *VaultWithDb) FindAccountsByUrl(url string) []Account {
 	return accounts
 }
 
-func (vault *VaultWithDb) DeleteAccountsByUrl(url string) bool {
+func DeleteAccountsByUrl[T any](url string) bool { // в методах дженерики не работают
 	var accounts []Account
 	isDeleted := false
 

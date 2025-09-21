@@ -1,4 +1,4 @@
-package output // дженерики
+package output // дженерики struct
 import (
 	"fmt"
 
@@ -31,6 +31,18 @@ func PrintError(value any) {
 	}
 }
 
-func sum[T int | float32 | float64 | int16 | int32 | string, V int](a, b T, c V) T { // нельзя добавить error, например, но можно использовать свой тип
+func sum[T int | string](a, b T) T { // нельзя добавить error, например, но можно использовать свой тип
+	switch d := any(a).(type) {
+	case string:
+		fmt.Println(d)
+	}
 	return a + b
+}
+
+type List[T any] struct {
+	elements []T
+}
+
+func (l *List[T]) assElement() {
+
 }
