@@ -1,8 +1,9 @@
 package account // Интерфейс встроенный
 
 import (
-	"13/output"
+	"11/output"
 	"encoding/json"
+	"fmt"
 	"strings"
 	"time"
 )
@@ -74,6 +75,7 @@ func NewVault(db Db) *VaultWithDb {
 	var vault Vault
 	err = json.Unmarshal(file, &vault)
 	if err != nil {
+		fmt.Println(err)
 		output.PrintError("Не удалось разобрать файл data.json")
 		//		color.Red("Не удалось разобрать файл data.json")
 		return &VaultWithDb{
