@@ -13,6 +13,7 @@ import (
 func main() {
 	fmt.Println("__ _ Менеджер паролей _ __")
 	vault := account.NewVault(files.NewJsonDb("data.json"))
+	//vault := account.NewVault(cloud.NewCloudDb("https://a.ru"))
 Menu:
 	for {
 		variant := getMenu()

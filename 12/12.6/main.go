@@ -5,7 +5,7 @@ import (
 	//	"account" так работать не будет
 	// название модуля из go.mod
 	"11/account"
-	"11/cloud"
+	"11/files"
 	"11/output"
 
 	"github.com/fatih/color"
@@ -16,8 +16,8 @@ func main() {
 	output.PrintError("sd")
 	//	output.PrintError(NewCloudDb("https://a.ru")
 	fmt.Println("__ _ Менеджер паролей _ __")
-	vault := account.NewVault(cloud.NewCloudDb("https://a.ru"))
-	//	vault := account.NewVault(files.NewJsonDb("data.json"))
+	//vault := account.NewVault(cloud.NewCloudDb("https://a.ru"))
+	vault := account.NewVault(files.NewJsonDb("data.json"))
 Menu:
 	for {
 		variant := getMenu()
