@@ -31,16 +31,28 @@ type VaultWithDb struct {
 	db Db
 }
 
-func (vault *VaultWithDb) FindAccountsByUrl(url string) []Account {
+func (vault *VaultWithDb) FindAccounts(str string, checker func(Account, string) bool) []Account {
 	var accounts []Account
 	for _, account := range vault.Accounts {
-		isMatched := strings.Contains(account.Url, url)
+		// isMatched := strings.Contains(account.Url, url)
+		isMatched := checker(account, str)
 		if isMatched {
 			accounts = append(accounts, account)
 		}
 	}
 	return accounts
 }
+
+// func (vault *VaultWithDb) FindAccountsByLogin(login string) []Account { // нет смысла дублировать функцию
+// 	var accounts []Account                                                 // strings.Contains(account.Login, login) - функция,
+// 	for _, account := range vault.Accounts {                               // которую нужно подставить вместо strings.Contains(account.Url, url)
+// 		isMatched := strings.Contains(account.Login, login)
+// 		if isMatched {
+// 			accounts = append(accounts, account)
+// 		}
+// 	}
+// 	return accounts
+// }
 
 func (vault *VaultWithDb) DeleteAccountsByUrl(url string) bool {
 	var accounts []Account

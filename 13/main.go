@@ -2,6 +2,8 @@ package main // 11.6 JSON
 
 import (
 	"fmt"
+	"strings"
+
 	//	"account" так работать не будет
 	// название модуля из go.mod
 	"11/account"
@@ -49,13 +51,17 @@ Menu:
 
 func findAccount(vault *account.VaultWithDb) {
 	url := promptData([]string{"Введите URL для поиска"})
-	accounts := vault.FindAccountsByUrl(url)
+	accounts := vault.FindAccounts(url, checkUrl)
 	if len(accounts) == 0 {
 		color.Red("Аккаунтов не найдено")
 	}
 	for _, account := range accounts {
 		account.Output()
 	}
+}
+
+func checkUrl(acc account.Account, str string) bool {
+	return strings.Contains(acc.Url, str)
 }
 
 func deleteAccount(vault *account.VaultWithDb) {
