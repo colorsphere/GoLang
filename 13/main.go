@@ -20,19 +20,21 @@ var menu = map[string]func(*account.VaultWithDb){
 	"4": deleteAccount,
 }
 
+var menuVariants = []string{
+	"1. Создать аккаунт",
+	"2. Найти аккаунт по URL",
+	"3. Найти аккаунт по логину",
+	"4. Удалить аккаунт",
+	"5. Выход",
+	"Выберите вариант",
+}
+
 func main() {
 	fmt.Println("__ _ Менеджер паролей _ __")
 	vault := account.NewVault(files.NewJsonDb("data.json"))
 Menu:
 	for {
-		variant := promptData([]string{
-			"1. Создать аккаунт",
-			"2. Найти аккаунт по URL",
-			"3. Найти аккаунт по логину",
-			"4. Удалить аккаунт",
-			"5. Выход",
-			"Выберите вариант",
-		})
+		variant := promptData(menuVariants...)
 		menuFunc := menu[variant] // здесь получаем ФУНКЦИЮ в виде переменной
 		if menuFunc == nil {
 			break Menu
@@ -52,7 +54,7 @@ Menu:
 }
 
 func findAccountByUrl(vault *account.VaultWithDb) {
-	url := promptData([]string{"Введите URL для поиска"})
+	url := promptData("Введите URL для поиска")
 	accounts := vault.FindAccounts(url, func(acc account.Account, str string) bool {
 		return strings.Contains(acc.Url, str)
 	})
@@ -65,7 +67,7 @@ func findAccountByUrl(vault *account.VaultWithDb) {
 }
 
 func findAccountByLogin(vault *account.VaultWithDb) {
-	login := promptData([]string{"Введите логин для поиска"})
+	login := promptData("Введите логин для поиска")
 	accounts := vault.FindAccounts(login, func(acc account.Account, str string) bool {
 		return strings.Contains(acc.Login, str)
 	})
@@ -78,7 +80,7 @@ func findAccountByLogin(vault *account.VaultWithDb) {
 }
 
 func deleteAccount(vault *account.VaultWithDb) {
-	url := promptData([]string{"Введите URL для удаления"})
+	url := promptData("Введите URL для удаления")
 	isDeleted := vault.DeleteAccountsByUrl(url)
 	if isDeleted {
 		color.Green("Удалено")
@@ -89,9 +91,9 @@ func deleteAccount(vault *account.VaultWithDb) {
 }
 
 func createAccount(vault *account.VaultWithDb) {
-	login := promptData([]string{"Введите логин"})
-	password := promptData([]string{"Введите пароль"})
-	url := promptData([]string{"Введите URL"})
+	login := promptData("Введите логин")
+	password := promptData("Введите пароль")
+	url := promptData("Введите URL")
 	myAccount, err := account.NewAccount(login, password, url)
 	if err != nil {
 		output.PrintError("Неверный формат URL или Логин")
@@ -105,7 +107,7 @@ func createAccount(vault *account.VaultWithDb) {
 // Функция должна принимать slice любого типа
 // Выводит строкой каждый элемент, а последний - Printf добавляя :
 
-func promptData[T any](prompt []T) string {
+func promptData(prompt ...string) string {
 	for i, line := range prompt {
 		if i == len(prompt)-1 {
 			fmt.Printf("%v: ", line)
