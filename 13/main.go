@@ -29,11 +29,21 @@ var menuVariants = []string{
 	"Выберите вариант",
 }
 
+func menuCounter() func() {
+	i := 0
+	return func() {
+		i++
+		fmt.Println(i)
+	}
+}
+
 func main() {
 	fmt.Println("__ _ Менеджер паролей _ __")
 	vault := account.NewVault(files.NewJsonDb("data.json"))
+	counter := menuCounter()
 Menu:
 	for {
+		counter()
 		variant := promptData(menuVariants...)
 		menuFunc := menu[variant] // здесь получаем ФУНКЦИЮ в виде переменной
 		if menuFunc == nil {
